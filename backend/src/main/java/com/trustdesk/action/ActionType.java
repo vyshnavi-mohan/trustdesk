@@ -1,0 +1,10 @@
+package com.trustdesk.action;
+
+public enum ActionType {
+    CREATE_REPLACEMENT_ORDER,
+    START_REFUND_REVIEW,
+    ISSUE_COUPON,
+    OPEN_CARRIER_INVESTIGATION,
+    ESCALATE_TO_HUMAN,
+    LOCK_ACCOUNT
+}
