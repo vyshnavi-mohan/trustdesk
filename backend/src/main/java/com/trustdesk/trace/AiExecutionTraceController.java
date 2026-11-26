@@ -19,4 +19,9 @@ public class AiExecutionTraceController {
             @PathVariable String ticketId) {
         return traceService.getTracesForTicket(ticketId);
     }
+
+    @GetMapping
+    public List<AiExecutionTrace> getAllTraces() {
+        return traceService.getAllTraces();
+    }
 }

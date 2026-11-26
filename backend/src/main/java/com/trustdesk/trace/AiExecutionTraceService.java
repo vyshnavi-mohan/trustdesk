@@ -45,4 +45,9 @@ public class AiExecutionTraceService {
     public List<AiExecutionTrace> getTracesForTicket(String ticketId) {
         return repository.findByTicketIdOrderByCreatedAtDesc(ticketId);
     }
+
+    @Transactional(readOnly = true)
+    public List<AiExecutionTrace> getAllTraces() {
+        return repository.findAllByOrderByCreatedAtDesc();
+    }
 }

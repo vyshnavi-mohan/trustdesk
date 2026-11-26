@@ -8,4 +8,6 @@ public interface AiExecutionTraceRepository
 
     List<AiExecutionTrace> findByTicketIdOrderByCreatedAtDesc(
             String ticketId);
+
+    List<AiExecutionTrace> findAllByOrderByCreatedAtDesc();
 }

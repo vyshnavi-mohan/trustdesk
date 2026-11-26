@@ -222,6 +222,36 @@ public class SupportActionService {
         }
     }
 
+
+    @Transactional(readOnly = true)
+    public List<ActionResponse> getActions(ActionStatus status) {
+        List<SupportAction> actions = status == null
+                ? actionRepository.findAllByOrderByCreatedAtDesc()
+                : actionRepository.findByStatusOrderByCreatedAtDesc(status);
+
+        return actions.stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActionResponse> getActionsByTicket(String ticketId) {
+        if (ticketId == null || ticketId.isBlank()) {
+            throw new ActionValidationException("Ticket ID is required.");
+        }
+
+        if (!ticketRepository.existsById(ticketId)) {
+            throw new TicketNotFoundException(ticketId);
+        }
+
+        return actionRepository
+                .findByTicket_TicketIdOrderByCreatedAtDesc(ticketId)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+
     private ActionResponse toResponse(SupportAction action) {
         try {
             var jsonNode = objectMapper.readTree(
